@@ -1,53 +1,53 @@
 class SoilTypes:
-    CHERN = "Chernozem"
-    SAN = "Sandy"
+    CHERNOZEM = "Chernozem"
+    SANDY = "Sandy"
     MOSS = "Moss"
-    AGRO = "Agrovata"
-    COCO = "Coconut"
-    LIN = "Linen"
+    AGROVATA = "Agrovata"
+    COCONUT = "Coconut"
+    LINEN = "Linen"
 
 
 soil_choose = (
-    (SoilTypes.CHERN, "Chernozem"),
-    (SoilTypes.SAN, "Sandy"),
+    (SoilTypes.CHERNOZEM, "Chernozem"),
+    (SoilTypes.SANDY, "Sandy"),
     (SoilTypes.MOSS, "Moss"),
-    (SoilTypes.AGRO, "Agrovata"),
-    (SoilTypes.COCO, "Coconut"),
-    (SoilTypes.LIN, "Linen"),
+    (SoilTypes.AGROVATA, "Agrovata"),
+    (SoilTypes.COCONUT, "Coconut"),
+    (SoilTypes.LINEN, "Linen"),
 )
 
 class WateringTypes:
-    FA = "from_above"
-    FB = "from_below"
-    SUB = "submersible"
+    ABOVE = "from_above"
+    BELOW = "from_below"
+    SUBMERSIBLE = "submersible"
 
 
 watering_choose = (
-    (WateringTypes.FA, "from_above"),
-    (WateringTypes.FB, "from_below"),
-    (WateringTypes.SUB, "submersible"),
+    (WateringTypes.ABOVE, "from_above"),
+    (WateringTypes.BELOW, "from_below"),
+    (WateringTypes.SUBMERSIBLE, "submersible"),
 )
 
 class BreedingTypes:
-    SE = "seeds"
-    DI = "division"
-    K = "kids"
+    SEEDS = "seeds"
+    DIVISION = "division"
+    KIDS = "kids"
 
 breeding_choose = (
-    (BreedingTypes.SE, "seeds"),
-    (BreedingTypes.DI, "division"),
-    (BreedingTypes.K, "kids"),
+    (BreedingTypes.SEEDS, "seeds"),
+    (BreedingTypes.DIVISION, "division"),
+    (BreedingTypes.KIDS, "kids"),
 )
 
 
 class ColorTypes:
-    W = "white"
-    R = "red"
-    Y = "yellow"
+    WHITE = "white"
+    RED = "red"
+    YELLOW = "yellow"
 
 color_choose = (
-    (ColorTypes.W, "white"),
-    (ColorTypes.R, "red"),
-    (ColorTypes.Y, "yellow"),
+    (ColorTypes.WHITE, "white"),
+    (ColorTypes.RED, "red"),
+    (ColorTypes.YELLOW, "yellow"),
 )
 
