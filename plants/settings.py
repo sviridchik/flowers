@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'plants_base',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,9 @@ DATABASES = {
         'PORT': config('PORT',cast=int),
     }
 }
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
