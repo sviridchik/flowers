@@ -1,3 +1,4 @@
+from enum import Enum
 class SoilTypes:
     CHERNOZEM = "Chernozem"
     SANDY = "Sandy"
@@ -6,15 +7,20 @@ class SoilTypes:
     COCONUT = "Coconut"
     LINEN = "Linen"
 
+    @ classmethod
+    def choices(cls):
+        return cls
 
-soil_choose = (
-    (SoilTypes.CHERNOZEM, "Chernozem"),
-    (SoilTypes.SANDY, "Sandy"),
-    (SoilTypes.MOSS, "Moss"),
-    (SoilTypes.AGROVATA, "Agrovata"),
-    (SoilTypes.COCONUT, "Coconut"),
-    (SoilTypes.LINEN, "Linen"),
-)
+
+
+# soil_choose = (
+#     (SoilTypes.CHERNOZEM, "Chernozem"),
+#     (SoilTypes.SANDY, "Sandy"),
+#     (SoilTypes.MOSS, "Moss"),
+#     (SoilTypes.AGROVATA, "Agrovata"),
+#     (SoilTypes.COCONUT, "Coconut"),
+#     (SoilTypes.LINEN, "Linen"),
+# )
 
 class WateringTypes:
     ABOVE = "from_above"
