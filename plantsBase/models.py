@@ -1,9 +1,7 @@
 # Create your models here.
 import uuid
-from choices import watering_choose, soil_choose, breeding_choose, color_choose
+from .choices import WateringTypes, SoilTypes, BreedingTypes, ColorTypes
 from django.db import models
-from choices import SoilTypes
-
 
 
 class BasePlants(models.Model):
@@ -14,17 +12,17 @@ class BasePlants(models.Model):
     # TODO:add ManyToManyField in indicators
     # problems = models.IntegerField()
     antoginists = models.IntegerField()
-    name = models.StringField()
-    scientific_name = models.StringField()
+    name = models.CharField(max_length=245)
+    scientific_name = models.CharField(max_length=245)
     level_of_complexity = models.FloatField()
-    type_of_soil = models.StringField(max_len=255, choice=SoilTypes.choices())
-    # TODO: is not creared yet. maybe better to do list?
+    type_of_soil = models.CharField(max_length=255, choices=SoilTypes.choices())
+    # TODO: is not created yet. maybe better to do list?
     # fertilizer =  models.ForeignKey(Fertilizer,on_delete = models.SE)
     date_of_last_transfer = models.DateField()
     description = models.TextField()
     spraying = models.BooleanField()
-    type_of_watering = models.StringField(max_len=245, choice=watering_choose)
-    breeding_method = models.StringField(max_len=245, choice=breeding_choose)
+    type_of_watering = models.CharField(max_length=245, choices=WateringTypes.choices())
+    breeding_method = models.CharField(max_length=245, choices=BreedingTypes.choices())
     # TODO: is not creared yet. maybe better to do list?
     # indicators= models.ForeignKey(Indicators,models.SET_NULL)
 
@@ -39,5 +37,5 @@ class Microgreen(BasePlants):
 
 
 class Flowers(BasePlants):
-    color = models.StringField(max_len=245, choice=color_choose)
+    color = models.CharField(max_length=245, choices=ColorTypes.choices())
     last_date_of_blossom = models.DateField()

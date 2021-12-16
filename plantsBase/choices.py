@@ -1,5 +1,7 @@
 from enum import Enum
-class SoilTypes:
+
+
+class SoilTypes(Enum):
     CHERNOZEM = "Chernozem"
     SANDY = "Sandy"
     MOSS = "Moss"
@@ -7,53 +9,36 @@ class SoilTypes:
     COCONUT = "Coconut"
     LINEN = "Linen"
 
-    @ classmethod
+    @classmethod
     def choices(cls):
-        return cls
+        return tuple((member[-1].name, member[-1].value) for member in cls.__members__.items())
 
 
-
-# soil_choose = (
-#     (SoilTypes.CHERNOZEM, "Chernozem"),
-#     (SoilTypes.SANDY, "Sandy"),
-#     (SoilTypes.MOSS, "Moss"),
-#     (SoilTypes.AGROVATA, "Agrovata"),
-#     (SoilTypes.COCONUT, "Coconut"),
-#     (SoilTypes.LINEN, "Linen"),
-# )
-
-class WateringTypes:
+class WateringTypes(Enum):
     ABOVE = "from_above"
     BELOW = "from_below"
     SUBMERSIBLE = "submersible"
 
+    @classmethod
+    def choices(cls):
+        return tuple((member[-1].name, member[-1].value) for member in cls.__members__.items())
 
-watering_choose = (
-    (WateringTypes.ABOVE, "from_above"),
-    (WateringTypes.BELOW, "from_below"),
-    (WateringTypes.SUBMERSIBLE, "submersible"),
-)
 
-class BreedingTypes:
+class BreedingTypes(Enum):
     SEEDS = "seeds"
     DIVISION = "division"
     KIDS = "kids"
 
-breeding_choose = (
-    (BreedingTypes.SEEDS, "seeds"),
-    (BreedingTypes.DIVISION, "division"),
-    (BreedingTypes.KIDS, "kids"),
-)
+    @classmethod
+    def choices(cls):
+        return tuple((member[-1].name, member[-1].value) for member in cls.__members__.items())
 
 
-class ColorTypes:
+class ColorTypes(Enum):
     WHITE = "white"
     RED = "red"
     YELLOW = "yellow"
 
-color_choose = (
-    (ColorTypes.WHITE, "white"),
-    (ColorTypes.RED, "red"),
-    (ColorTypes.YELLOW, "yellow"),
-)
-
+    @classmethod
+    def choices(cls):
+        return tuple((member[-1].name, member[-1].value) for member in cls.__members__.items())
