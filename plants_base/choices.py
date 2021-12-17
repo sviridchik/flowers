@@ -17,12 +17,6 @@ class SoilTypes(ChoicesMixin):
     LINEN = "Linen"
 
 
-class WateringTypes(ChoicesMixin):
-    ABOVE = "from_above"
-    BELOW = "from_below"
-    SUBMERSIBLE = "submersible"
-
-
 class BreedingTypes(ChoicesMixin):
     SEEDS = "seeds"
     DIVISION = "division"

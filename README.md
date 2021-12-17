@@ -159,3 +159,4 @@ POST/ solutions /id
 6) Но как хранить режимы
 
 Можно в как список сущностей (id описание с какого по какое и проверять дату с сегодняшней)
+https://django.fun/tutorials/kak-nachat-proekt-python-s-django-v-2020-godu/
