@@ -1,7 +1,11 @@
 # Create your models here.
 import uuid
-from .choices import WateringTypes, SoilTypes, BreedingTypes, ColorTypes
+
 from django.db import models
+
+from plants_care.models import Watering
+
+from .choices import BreedingTypes, ColorTypes, SoilTypes
 
 
 class BasePlants(models.Model):
@@ -21,7 +25,7 @@ class BasePlants(models.Model):
     date_of_last_transfer = models.DateField()
     description = models.TextField()
     spraying = models.BooleanField()
-    type_of_watering = models.CharField(max_length=245, choices=WateringTypes.choices())
+    type_of_watering = models.ForeignKey(Watering, on_delete=models.SET_NULL, null=True)
     breeding_method = models.CharField(max_length=245, choices=BreedingTypes.choices())
     # TODO: is not creared yet. maybe better to do list?
     # indicators= models.ForeignKey(Indicators,models.SET_NULL)

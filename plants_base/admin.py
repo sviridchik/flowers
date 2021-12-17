@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from plants_base import models
 
 # Register your models here.

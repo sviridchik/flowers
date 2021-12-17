@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PlantsBaseConfig(AppConfig):
+class PlantsCareConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "plants_base"
+    name = "plants_care"

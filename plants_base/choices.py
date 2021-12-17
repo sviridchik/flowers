@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class ChoicesMixin(Enum):
-
     @classmethod
     def choices(cls):
         # return tuple((member[-1].name, member[-1].value) for member in cls.__members__.items())
@@ -16,12 +15,6 @@ class SoilTypes(ChoicesMixin):
     AGROVATA = "Agrovata"
     COCONUT = "Coconut"
     LINEN = "Linen"
-
-
-class WateringTypes(ChoicesMixin):
-    ABOVE = "from_above"
-    BELOW = "from_below"
-    SUBMERSIBLE = "submersible"
 
 
 class BreedingTypes(ChoicesMixin):
