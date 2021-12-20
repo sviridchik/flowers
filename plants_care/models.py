@@ -14,7 +14,7 @@ class Regime(models.Model):
 
 
 class Fertilizer(models.Model):
-    id = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    id = models.IntegerField(primary_key=True, default=uuid.uuid4, auto_created=True, unique=True)
     description = models.TextField()
     title = models.CharField(max_length=245)
     # TODO:add fk or mixin
