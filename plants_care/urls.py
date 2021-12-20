@@ -8,11 +8,11 @@ from . import views
 
 urlpatterns = [
     path(r"fertilizer/", views.FertilizerList.as_view(), name="fertilizer_list"),
-    path(r"fertilizer/" + pk_reg + "$", views.FertilizerListDetail.as_view(), name="fertilizer_detail"),
+    path(r"fertilizer/<uuid:pk>/", views.FertilizerListDetail.as_view(), name="fertilizer_detail"),
     path(r"watering/", views.WateringList.as_view(), name="watering_list"),
-    path(r"watering/" + pk_reg + "$", views.WateringListDetail.as_view(), name="watering_detail"),
+    path(r"watering/<uuid:pk>/", views.WateringListDetail.as_view(), name="watering_detail"),
     path(r"solutions/", views.SolutionsList.as_view(), name="solutions_list"),
-    path(r"solutions/" + pk_reg + "$", views.SolutionsListDetail.as_view(), name="solutions_detail"),
+    path(r"solutions/<uuid:pk>/", views.SolutionsListDetail.as_view(), name="solutions_detail"),
     path(r"regimes/", views.RegimeList.as_view(), name="regimes_list"),
-    path(r"regimes/" + pk_reg + "$", views.RegimeListDetail.as_view(), name="regimes_detail"),
+    path(r"regimes/<uuid:pk>/", views.RegimeListDetail.as_view(), name="regimes_detail"),
 ]

@@ -6,7 +6,7 @@ from .models import *
 class WateringSerializer(serializers.ModelSerializer):
     class Meta:
         model = Watering
-        fields = "__all__"
+        fields = ("id", "type", "description", "regime")
 
 
 class FertilizerSerializer(serializers.ModelSerializer):
@@ -14,20 +14,19 @@ class FertilizerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fertilizer
-        # fields = "__all__"
         fields = ("id", "description", "title", "regime")
 
 
 class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
-        fields = "__all__"
+        fields = ("id", "description", "title")
 
 
 class SolutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Solution
-        fields = "__all__"
+        fields = ("id", "description", "title", "regime")
 
 
 class RegimeSerializer(serializers.ModelSerializer):
@@ -35,4 +34,4 @@ class RegimeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Regime
-        fields = "__all__"
+        fields = ("id", "frequency", "data_start", "data_end")
