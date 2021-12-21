@@ -6,7 +6,9 @@ from .choices_care import WateringTypes
 
 
 class Regime(models.Model):
-    id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, auto_created=True, default=uuid.uuid4, editable=False, max_length=255)
+    # id = models.IntegerField(primary_key=True,auto_created=True,default=int(), editable=False)
+
     # TODO:to discuss
     frequency = models.IntegerField()
     data_start = models.DateField()
@@ -14,7 +16,9 @@ class Regime(models.Model):
 
 
 class Fertilizer(models.Model):
-    id = models.IntegerField(primary_key=True, default=uuid.uuid4, auto_created=True, unique=True)
+    id = models.CharField(primary_key=True, default=uuid.uuid4, auto_created=True, unique=True, max_length=255)
+    # id = models.IntegerField(primary_key=True, default=int(),auto_created=True, unique=True)
+
     description = models.TextField()
     title = models.CharField(max_length=245)
     # TODO:add fk or mixin
@@ -22,7 +26,7 @@ class Fertilizer(models.Model):
 
 
 class Watering(models.Model):
-    id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, max_length=255)
     # TODO: choice for type
     type = models.CharField(max_length=255, choices=WateringTypes.choices())
     description = models.TextField()
@@ -31,7 +35,7 @@ class Watering(models.Model):
 
 
 class Solution(models.Model):
-    id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, max_length=255)
     # TODO: may be deleted (not sure if it is an informative field)
     title = models.CharField(max_length=245)
     description = models.TextField()
@@ -40,8 +44,7 @@ class Solution(models.Model):
 
 
 class Problem(models.Model):
-    id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
-    # TODO: choice for type
+    id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, max_length=255)
     title = models.CharField(max_length=245)
     description = models.TextField()
 

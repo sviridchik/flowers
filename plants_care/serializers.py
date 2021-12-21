@@ -10,8 +10,6 @@ class WateringSerializer(serializers.ModelSerializer):
 
 
 class FertilizerSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(allow_null=False, read_only=True)
-
     class Meta:
         model = Fertilizer
         fields = ("id", "description", "title", "regime")

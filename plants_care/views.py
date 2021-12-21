@@ -58,3 +58,17 @@ class RegimeListDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RegimeSerializer
     # TODO: maybe allowANy?
     # permission_classes = (permissions.IsAuthenticated)
+
+
+class ProblemList(generics.ListCreateAPIView):
+    queryset = Problem.objects.all()
+    serializer_class = ProblemSerializer
+    # TODO: maybe allowANy?
+    # permission_classes = (permissions.IsAuthenticated)
+
+
+class ProblemListDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Problem.objects.all()
+    serializer_class = ProblemSerializer
+    # TODO: maybe allowANy?
+    # permission_classes = (permissions.IsAuthenticated)
