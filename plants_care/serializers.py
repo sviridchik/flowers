@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import *
+from plants_care.models import Fertilizer, Problem, Regime, Solution, Watering
 
 
 class WateringSerializer(serializers.ModelSerializer):

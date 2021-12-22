@@ -5,32 +5,41 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from plants_care.views import FertilizerList
-
-from .factories import *
-from .models import Fertilizer
+from plants_care.factories import FertilizerFactory, ProblemFactory, SolutionFactory, WateringFactory
+from plants_care.models import Fertilizer, Problem, Solution, Watering
 
 
-class TestFertilizerView(TestCase):
-    def setUp(self) -> None:
-        self.client = APIClient()
-        self.view_name = "plants_care:fertilizer_list"
+@pytest.fixture()
+def view_name():
+    view_name = "plants_care:fertilizer_list"
+    return view_name
 
-    def test_get(self):
-        FertilizerFactory()
-        response = self.client.get(reverse(self.view_name))
-        assert response.status_code == 200
 
-    def test_post(self):
-        response = self.client.post(
-            reverse(self.view_name),
-            data={
-                "description": "very good fertilizer for  flowers during flowering",
-                "title": "Sodium Nitrate Calcium Nitrate ",
-            },
-        )
-        assert response.status_code == 201
-        assert len(Fertilizer.objects.all()) == 1
+@pytest.fixture()
+def client():
+    client = APIClient()
+    return client
+
+
+@pytest.mark.django_db
+def test_get(view_name, client):
+    # raise Exception(view_name)
+    FertilizerFactory()
+    response = client.get(reverse(view_name))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_post(view_name, client):
+    response = client.post(
+        reverse(view_name),
+        data={
+            "description": "very good fertilizer for  flowers during flowering",
+            "title": "Sodium Nitrate Calcium Nitrate ",
+        },
+    )
+    assert response.status_code == 201
+    assert len(Fertilizer.objects.all()) == 1
 
 
 class TestFertilizerDetailView(TestCase):
@@ -77,7 +86,6 @@ class TestWateringView(TestCase):
                 "type": "ABOVE",
             },
         )
-        # raise Exception(response.data)
         assert response.status_code == 201
         assert len(Watering.objects.all()) == 1
 

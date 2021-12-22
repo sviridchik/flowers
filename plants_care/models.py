@@ -2,13 +2,11 @@ import uuid
 
 from django.db import models
 
-from .choices_care import WateringTypes
+from plants_care.choices_care import WateringTypes
 
 
 class Regime(models.Model):
     id = models.CharField(primary_key=True, auto_created=True, default=uuid.uuid4, editable=False, max_length=255)
-    # id = models.IntegerField(primary_key=True,auto_created=True,default=int(), editable=False)
-
     # TODO:to discuss
     frequency = models.IntegerField()
     data_start = models.DateField()
@@ -17,8 +15,6 @@ class Regime(models.Model):
 
 class Fertilizer(models.Model):
     id = models.CharField(primary_key=True, default=uuid.uuid4, auto_created=True, unique=True, max_length=255)
-    # id = models.IntegerField(primary_key=True, default=int(),auto_created=True, unique=True)
-
     description = models.TextField()
     title = models.CharField(max_length=245)
     # TODO:add fk or mixin
@@ -27,7 +23,6 @@ class Fertilizer(models.Model):
 
 class Watering(models.Model):
     id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, max_length=255)
-    # TODO: choice for type
     type = models.CharField(max_length=255, choices=WateringTypes.choices())
     description = models.TextField()
     # TODO:add fk or mixin

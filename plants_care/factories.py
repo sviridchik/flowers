@@ -1,7 +1,7 @@
 import factory
 
-from .choices_care import WateringTypes
-from .models import *
+from plants_care.choices_care import WateringTypes
+from plants_care.models import Fertilizer, Problem, Regime, Solution, Watering
 
 
 class RegimeFactory(factory.django.DjangoModelFactory):

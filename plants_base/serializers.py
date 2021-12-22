@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import *
+from plants_base.models import Flowers, Microgreen, Succulents
 
 
 class SucculentsSerializer(serializers.ModelSerializer):

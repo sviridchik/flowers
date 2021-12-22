@@ -1,5 +1,3 @@
 from django.shortcuts import render
 
-# Create your views here.
-# RetrieveUpdateDestroyAPIView
-#
+# TODO: Create your views here.

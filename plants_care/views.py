@@ -1,7 +1,13 @@
 from rest_framework import generics
 
-from .models import Fertilizer, Watering
-from .serializers import *
+from plants_care.models import Fertilizer, Problem, Regime, Solution, Watering
+from plants_care.serializers import (
+    FertilizerSerializer,
+    ProblemSerializer,
+    RegimeSerializer,
+    SolutionSerializer,
+    WateringSerializer,
+)
 
 
 class FertilizerList(generics.ListCreateAPIView):
