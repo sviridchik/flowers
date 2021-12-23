@@ -5,7 +5,12 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from plants_care.factories import FertilizerFactory, ProblemFactory, SolutionFactory, WateringFactory
+from plants_care.factories import (
+    FertilizerFactory,
+    ProblemFactory,
+    SolutionFactory,
+    WateringFactory,
+)
 from plants_care.models import Fertilizer, Problem, Solution, Watering
 
 
@@ -40,6 +45,20 @@ def test_post(view_name, client):
     )
     assert response.status_code == 201
     assert len(Fertilizer.objects.all()) == 1
+
+
+class TestFertilizingView(TestCase):
+    @pytest.fixture()
+    def view_name(self):
+        view_name = "plants_care:fertilizer_list"
+        return view_name
+
+    @pytest.mark.django_db
+    def test_get(self, view_name):
+        raise Exception(view_name)
+        FertilizerFactory()
+        response = client.get(reverse(view_name))
+        assert response.status_code == 200
 
 
 class TestFertilizerDetailView(TestCase):
