@@ -25,13 +25,13 @@ def test_post_fert(client):
 
 @pytest.mark.django_db
 def test_get_fert_pk(fertilizer_factory, client):
-    response = client.get(f"/care/fertilizer/{str(fertilizer_factory().id)}/")
+    response = client.get(f"/care/fertilizer/{fertilizer_factory().id}/")
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
 def test_delete_fert(fertilizer_factory, client):
-    response = client.delete(f"/care/fertilizer/{str(fertilizer_factory().id)}/")
+    response = client.delete(f"/care/fertilizer/{fertilizer_factory().id}/")
     assert response.status_code == 204
     assert len(Fertilizer.objects.all()) == 0
 
@@ -40,7 +40,7 @@ def test_delete_fert(fertilizer_factory, client):
 @pytest.mark.django_db
 def test_patch_fert(fertilizer_factory, client):
     response = client.patch(
-        f"/care/fertilizer/{str(fertilizer_factory().id)}/", data={"description": "very informative description"}
+        f"/care/fertilizer/{fertilizer_factory().id}/", data={"description": "very informative description"}
     )
     assert response.status_code == 200
     assert len(Fertilizer.objects.all()) == 1

@@ -26,13 +26,13 @@ def test_post_problem(client):
 
 @pytest.mark.django_db
 def test_get_problem_pk(client, problem_factory):
-    response = client.get(f"/care/problems/{str(problem_factory().id)}/")
+    response = client.get(f"/care/problems/{problem_factory().id}/")
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
 def test_delete_problem(client, problem_factory):
-    response = client.delete(f"/care/problems/{str(problem_factory().id)}/")
+    response = client.delete(f"/care/problems/{problem_factory().id}/")
     assert response.status_code == 204
     assert len(Problem.objects.all()) == 0
 
@@ -41,7 +41,7 @@ def test_delete_problem(client, problem_factory):
 # TODO: DEBUG SMTH WRONG
 def test_patch_problem(client, problem_factory):
     response = client.patch(
-        f"/care/problems/{str(problem_factory().id)}/", data={"description": "very informative "}
+        f"/care/problems/{problem_factory().id}/", data={"description": "very informative "}
     )
     assert response.status_code == 200
     assert len(Problem.objects.all()) == 1
