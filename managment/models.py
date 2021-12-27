@@ -3,10 +3,7 @@ import uuid
 from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
 
-
-# Create your models here.
 class Profile(models.Model):
     id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
 
