@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "plants_base",
     "plants_care",
     "rest_framework",
+    "managment",
 ]
 
 MIDDLEWARE = [
