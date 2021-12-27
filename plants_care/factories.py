@@ -12,8 +12,9 @@ class RegimeFactory(factory.django.DjangoModelFactory):
     data_start = "2021-12-12"
     data_end = "2021-12-22"
 
-
+@register
 class FertilizerFactory(factory.django.DjangoModelFactory):
+# class FertilizerFactory(factory.Factory):
     class Meta:
         model = Fertilizer
 
@@ -46,3 +47,4 @@ class ProblemFactory(factory.django.DjangoModelFactory):
 
     description = " forgot to water"
     title = "the end"
+

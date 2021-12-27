@@ -1,6 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 from plants_care.factories import FertilizerFactory,SolutionFactory,ProblemFactory,WateringFactory
+from pytest_factoryboy import register
+from plants_care.factories import FertilizerFactory
 
 @pytest.fixture(autouse = True)
 def client():
@@ -22,3 +24,6 @@ def s():
 @pytest.fixture()
 def w():
     return WateringFactory()
+
+# TODO neme is not defined whateever I do ???????????
+register(FertilizerFactory)
