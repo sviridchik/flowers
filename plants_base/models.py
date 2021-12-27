@@ -1,11 +1,9 @@
-# Create your models here.
 import uuid
 
 from django.db import models
 
+from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes
 from plants_care.models import Watering
-
-from .choices import BreedingTypes, ColorTypes, SoilTypes
 
 
 class BasePlants(models.Model):

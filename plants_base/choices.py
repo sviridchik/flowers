@@ -4,7 +4,6 @@ from enum import Enum
 class ChoicesMixin(Enum):
     @classmethod
     def choices(cls):
-        # return tuple((member[-1].name, member[-1].value) for member in cls.__members__.items())
         return tuple((name, member) for name, member in cls.__members__.items())
 
 
