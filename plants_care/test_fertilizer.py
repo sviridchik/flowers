@@ -36,11 +36,13 @@ def test_delete_fert(fertilizer_factory, client):
     assert len(Fertilizer.objects.all()) == 0
 
 
-# TODO: DEBUG SMTH WRONG
 @pytest.mark.django_db
 def test_patch_fert(fertilizer_factory, client):
+    f = fertilizer_factory()
     response = client.patch(
-        f"/care/fertilizer/{fertilizer_factory().id}/", data={"description": "very informative description"}
+        f"/care/fertilizer/{f.id}/", data={"description": "very informative description"}
     )
+    f.refresh_from_db()
+    assert f.description == "very informative description"
     assert response.status_code == 200
     assert len(Fertilizer.objects.all()) == 1

@@ -46,8 +46,11 @@ def test_delete_room(client, room_factory):
 @pytest.mark.django_db
 # TODO: DEBUG SMTH WRONG
 def test_patch_room(client, room_factory):
+    r = room_factory()
     response = client.patch(
-        (f"/managment/rooms/{room_factory().id}/"), data={"description": "very informative "}
+        (f"/managment/rooms/{r.id}/"), data={"humidity_summer": 98.9}
     )
+    r.refresh_from_db()
+    assert r.humidity_summer == 98.9
     assert response.status_code == 200
     assert len(Rooms.objects.all()) == 1

@@ -38,10 +38,13 @@ def test_delete_problem(client, problem_factory):
 
 
 @pytest.mark.django_db
-# TODO: DEBUG SMTH WRONG
 def test_patch_problem(client, problem_factory):
+    p = problem_factory()
     response = client.patch(
-        f"/care/problems/{problem_factory().id}/", data={"description": "very informative "}
+        f"/care/problems/{p.id}/", data={"description": "very informative"}
     )
+    p.refresh_from_db()
+
+    assert p.description == "very informative"
     assert response.status_code == 200
     assert len(Problem.objects.all()) == 1

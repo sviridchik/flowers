@@ -38,10 +38,12 @@ def test_delete_watering(client, watering_factory):
 
 
 @pytest.mark.django_db
-# TODO: DEBUG SMTH WRONG
 def test_patch_watering(client, watering_factory):
+    w = watering_factory()
     response = client.patch(
-        (f"/care/watering/{watering_factory().id}/"), data={"description": "very informative "}
+        (f"/care/watering/{w.id}/"), data={"description": "very informative"}
     )
+    w.refresh_from_db()
+    assert w.description == "very informative"
     assert response.status_code == 200
     assert len(Watering.objects.all()) == 1
