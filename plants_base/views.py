@@ -1,16 +1,25 @@
 from rest_framework import generics
 # TODO: Create your views here.
+from plants_base.models import BasePlants, Succulents, Flowers, Microgreen
+from plants_base.serializers import PLantSerializer, SucculentsSerializer, MicrogreenSerializer, FlowersSerializer
+from plants_base.choices import TypeChoice
 
-class Plants(generics.CreateAPIView):
 
-    # def get_queryset(self):
-    #     raise Exception(self)
-    #     return user.accounts.all()
+# TODO to think how to do it right
+class Plants(generics.ListCreateAPIView):
 
-    def post(self, request, *args, **kwargs):
-        # raise Exception(self.type)
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def get_serializer_class(self, *args, **kwargs):
+        if self.request.data["type"] == TypeChoice.SUCCULENT.value:
+            return SucculentsSerializer
+        elif self.request.data["type"] == TypeChoice.MICROGREEN.value:
+            return MicrogreenSerializer
+        elif self.request.data["type"] == TypeChoice.FLOWERS.value:
+            return FlowersSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        if self.request.data["type"] == TypeChoice.SUCCULENT.value:
+            return Succulents.objects.all()
+        elif self.request.data["type"] == TypeChoice.MICROGREEN.value:
+            return Microgreen.objects.all()
+        elif self.request.data["type"] == TypeChoice.FLOWERS.value:
+            return Flowers.objects.all()

@@ -16,6 +16,12 @@ class SoilTypes(ChoicesMixin):
     LINEN = "Linen"
 
 
+class TypeChoice(ChoicesMixin):
+    SUCCULENT = "succulent"
+    MICROGREEN = "microgreen"
+    FLOWERS = "flowers"
+
+
 class BreedingTypes(ChoicesMixin):
     SEEDS = "seeds"
     DIVISION = "division"
