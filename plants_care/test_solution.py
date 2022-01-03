@@ -4,8 +4,7 @@ from plants_care.models import Solution
 
 
 @pytest.mark.django_db
-def test_get_solution(client, solution_factory):
-    solution_factory()
+def test_get_solution(client):
     response = client.get("/care/solutions/")
     assert response.status_code == 200
 
@@ -21,25 +20,24 @@ def test_post_solution(client):
 
 
 @pytest.mark.django_db
-def test_get_solution_pk(client, solution_factory):
-    response = client.get(f"/care/solutions/{solution_factory().id}/")
+def test_get_solution_pk(client, solution):
+    response = client.get(f"/care/solutions/{solution.id}/")
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_delete_solution(client, solution_factory):
-    response = client.delete(f"/care/solutions/{solution_factory().id}/")
+def test_delete_solution(client, solution):
+    response = client.delete(f"/care/solutions/{solution.id}/")
     assert response.status_code == 204
     assert len(Solution.objects.all()) == 0
 
 
 @pytest.mark.django_db
-def test_patch_solution(client, solution_factory):
-    s = solution_factory()
+def test_patch_solution(client, solution):
     response = client.patch(
-        f"/care/solutions/{s.id}/", data={"description": "very informative"}
+        f"/care/solutions/{solution.id}/", data={"description": "very informative"}
     )
-    s.refresh_from_db()
-    assert s.description == "very informative"
+    solution.refresh_from_db()
+    assert solution.description == "very informative"
     assert response.status_code == 200
     assert len(Solution.objects.all()) == 1

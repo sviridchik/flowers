@@ -1,7 +1,8 @@
 import pytest
-from rest_framework.test import APIClient
-from managment.factories import RoomFactory, ProfileFactory
 from pytest_factoryboy import register
+from rest_framework.test import APIClient
+
+from managment.factories import RoomFactory, ProfileFactory, UserFactory
 
 
 @pytest.fixture(autouse=True)
@@ -10,5 +11,6 @@ def client():
     return client
 
 
-register(RoomFactory)
-register(ProfileFactory)
+register(UserFactory, "user")
+register(RoomFactory, "room")
+register(ProfileFactory, "profile")

@@ -1,8 +1,9 @@
 import pytest
-from rest_framework.test import APIClient
-from plants_care.factories import FertilizerFactory, SolutionFactory, ProblemFactory, WateringFactory
 from pytest_factoryboy import register
+from rest_framework.test import APIClient
+
 from plants_care.factories import FertilizerFactory
+from plants_care.factories import FertilizerFactory, SolutionFactory, ProblemFactory, WateringFactory, RegimeFactory
 
 
 @pytest.fixture(autouse=True)
@@ -11,7 +12,8 @@ def client():
     return client
 
 
-register(FertilizerFactory, name="fertilizer_factory")
-register(ProblemFactory)
-register(SolutionFactory)
-register(WateringFactory)
+register(RegimeFactory, "regime")
+register(FertilizerFactory, "fertilizer")
+register(ProblemFactory, "problem")
+register(SolutionFactory, "solution")
+register(WateringFactory, "watering")

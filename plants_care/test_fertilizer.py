@@ -4,8 +4,7 @@ from plants_care.models import Fertilizer
 
 
 @pytest.mark.django_db
-def test_get_fert(client, fertilizer_factory):
-    fertilizer_factory()
+def test_get_fert(client, ):
     response = client.get("/care/fertilizer/")
     assert response.status_code == 200
 
@@ -24,25 +23,24 @@ def test_post_fert(client):
 
 
 @pytest.mark.django_db
-def test_get_fert_pk(fertilizer_factory, client):
-    response = client.get(f"/care/fertilizer/{fertilizer_factory().id}/")
+def test_get_fert_pk(fertilizer, client):
+    response = client.get(f"/care/fertilizer/{fertilizer.id}/")
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_delete_fert(fertilizer_factory, client):
-    response = client.delete(f"/care/fertilizer/{fertilizer_factory().id}/")
+def test_delete_fert(fertilizer, client):
+    response = client.delete(f"/care/fertilizer/{fertilizer.id}/")
     assert response.status_code == 204
     assert len(Fertilizer.objects.all()) == 0
 
 
 @pytest.mark.django_db
-def test_patch_fert(fertilizer_factory, client):
-    f = fertilizer_factory()
+def test_patch_fert(fertilizer, client):
     response = client.patch(
-        f"/care/fertilizer/{f.id}/", data={"description": "very informative description"}
+        f"/care/fertilizer/{fertilizer.id}/", data={"description": "very informative description"}
     )
-    f.refresh_from_db()
-    assert f.description == "very informative description"
+    fertilizer.refresh_from_db()
+    assert fertilizer.description == "very informative description"
     assert response.status_code == 200
     assert len(Fertilizer.objects.all()) == 1
