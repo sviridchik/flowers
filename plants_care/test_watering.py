@@ -1,12 +1,20 @@
 import pytest
 
 from plants_care.models import Watering
+from plants_care.serializers import WateringSerializer
 
 
 @pytest.mark.django_db
-def test_get_watering(client):
+def test_get_watering(client, watering):
     response = client.get("/care/watering/")
     assert response.status_code == 200
+    assert len(response.json()) == 1
+    response.json()[0]["type"] = response.json()[0]["type"].split(".")[-1]
+    processed_watering = WateringSerializer(watering).data.copy()
+    processed_watering["type"] = WateringSerializer(watering).data["type"].name
+    if processed_watering["regime"] is not None:
+        processed_watering["regime"] = str(processed_watering["regime"])
+    assert response.json()[0] == processed_watering
 
 
 @pytest.mark.django_db
@@ -38,10 +46,10 @@ def test_delete_watering(client, watering):
 
 @pytest.mark.django_db
 def test_patch_watering(client, watering):
-    response = client.patch(
-        (f"/care/watering/{watering.id}/"), data={"description": "very informative"}
-    )
+    response = client.patch((f"/care/watering/{watering.id}/"), data={"description": "very informative"})
     watering.refresh_from_db()
     assert watering.description == "very informative"
     assert response.status_code == 200
     assert len(Watering.objects.all()) == 1
+    processed_watering = WateringSerializer(watering).data.copy()
+    assert response.json() == processed_watering
