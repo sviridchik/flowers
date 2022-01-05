@@ -47,6 +47,7 @@ def test_delete_users(client, profile):
 def test_patch_users(client, profile):
     response = client.patch((f"/managment/users/{profile.id}/"), data={"level_of_qualification": 5})
     profile.refresh_from_db()
+    #     TODO 
     assert profile.level_of_qualification == 5
     assert len(Profile.objects.all()) == 1
     assert response.status_code == 200
