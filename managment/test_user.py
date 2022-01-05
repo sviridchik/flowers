@@ -49,5 +49,6 @@ def test_patch_users(client, profile):
     profile.refresh_from_db()
     profile.user.refresh_from_db()
     assert Profile.objects.all()[0].level_of_qualification == 5
+    assert profile.level_of_qualification == 5
     assert len(Profile.objects.all()) == 1
     assert response.status_code == 200
