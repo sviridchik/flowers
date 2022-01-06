@@ -7,8 +7,7 @@ from plants_care.models import Watering, Fertilizer, Problem
 
 
 class BasePlants(models.Model):
-    class Meta:
-        abstract = True
+
 
     id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
     problems = models.ForeignKey(Problem, on_delete=models.SET_NULL, null=True)
@@ -40,7 +39,6 @@ class Flowers(BasePlants):
 
 
 class Indicators(models.Model):
-    # TODO smth very wrong
-    # plant = models.ManyToManyField(BasePlants)
+    plant = models.ForeignKey(BasePlants,on_delete=models.SET_NULL, null = True)
     humidity = models.FloatField()
     lightning = models.IntegerField()
