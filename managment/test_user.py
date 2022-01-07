@@ -10,7 +10,8 @@ def test_get_user(client, profile):
     response = client.get("/managment/users/")
     assert response.status_code == 200
     assert len(response.json()) == 1
-    assert response.json()[0] == ProfileSerializer(profile).data
+    assert response.json()[0] == {'email': profile.user.email, 'level_of_qualification': profile.level_of_qualification,
+                                  'username': profile.user.username, "password": response.json()[0]["password"], }
 
 
 @pytest.mark.django_db
@@ -26,14 +27,20 @@ def test_post_users(client):
     )
     assert response.status_code == 201
     assert len(Profile.objects.all()) == 1
-    assert response.json() == ProfileSerializer(Profile.objects.all()[0]).data
+    assert response.json() == {
+        "username": "test12345",
+        "level_of_qualification": 3,
+        "email": "test@gmail.com",
+        "password": response.json()["password"],
+    }
 
 
 @pytest.mark.django_db
 def test_get_users_pk(client, profile):
     response = client.get(f"/managment/users/{profile.id}/")
     assert response.status_code == 200
-    assert response.json() == ProfileSerializer(profile).data
+    assert response.json() == {'email': profile.user.email, 'level_of_qualification': profile.level_of_qualification,
+                               'username': profile.user.username, "password": response.json()["password"], }
 
 
 @pytest.mark.django_db

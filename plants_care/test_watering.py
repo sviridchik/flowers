@@ -10,10 +10,10 @@ def test_get_watering(client, watering):
     assert response.status_code == 200
     assert len(response.json()) == 1
     response.json()[0]["type"] = response.json()[0]["type"].split(".")[-1]
-    processed_watering = WateringSerializer(watering).data.copy()
-    processed_watering["type"] = WateringSerializer(watering).data["type"].name
+    processed_watering = {'id': str(watering.id), 'type': watering.type.name, 'description': watering.description,
+                          'regime': watering.regime}
     if processed_watering["regime"] is not None:
-        processed_watering["regime"] = str(processed_watering["regime"])
+        processed_watering["regime"] = str(processed_watering["regime"].id)
     assert response.json()[0] == processed_watering
 
 
@@ -29,12 +29,25 @@ def test_post_watering(client):
     )
     assert response.status_code == 201
     assert len(Watering.objects.all()) == 1
+    watering = Watering.objects.all()[0]
+    response.json()["type"] = response.json()["type"].split(".")[-1]
+    processed_watering = {'id': str(watering.id), 'type': watering.type, 'description': watering.description,
+                          'regime': watering.regime}
+    if processed_watering["regime"] is not None:
+        processed_watering["regime"] = str(processed_watering["regime"].id)
+    assert response.json() == processed_watering
 
 
 @pytest.mark.django_db
 def test_get_watering_pk(client, watering):
     response = client.get(f"/care/watering/{watering.id}/")
     assert response.status_code == 200
+    response.json()["type"] = response.json()["type"].split(".")[-1]
+    processed_watering = {'id': str(watering.id), 'type': watering.type.name, 'description': watering.description,
+                          'regime': watering.regime}
+    if processed_watering["regime"] is not None:
+        processed_watering["regime"] = str(processed_watering["regime"].id)
+    assert response.json() == processed_watering
 
 
 @pytest.mark.django_db
@@ -51,5 +64,8 @@ def test_patch_watering(client, watering):
     assert watering.description == "very informative"
     assert response.status_code == 200
     assert len(Watering.objects.all()) == 1
-    processed_watering = WateringSerializer(watering).data.copy()
+    processed_watering = {'id': str(watering.id), 'type': watering.type, 'description': watering.description,
+                          'regime': watering.regime}
+    if processed_watering["regime"] is not None:
+        processed_watering["regime"] = str(processed_watering["regime"].id)
     assert response.json() == processed_watering

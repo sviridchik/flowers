@@ -9,8 +9,9 @@ def test_get_room(client, room):
     response = client.get("/managment/rooms/")
     assert response.status_code == 200
     assert len(response.json()) == 1
-    processed_room = RoomSerializer(room).data.copy()
-    processed_room["profile"] = str(RoomSerializer(room).data["profile"])
+    processed_room = {'id': str(room.id), 'humidity_summer': room.humidity_summer,
+                      'humidity_winter': room.humidity_winter, 'temp_winter': room.temp_winter,
+                      'temp_summer': room.temp_summer, 'profile': str(room.profile.id)}
     assert response.json()[0] == processed_room
 
 
@@ -30,8 +31,10 @@ def test_post_room(client, profile):
     )
     assert response.status_code == 201
     assert len(Rooms.objects.all()) == 1
-    processed_room = RoomSerializer(Rooms.objects.all()[0]).data.copy()
-    processed_room["profile"] = str(RoomSerializer(Rooms.objects.all()[0]).data["profile"])
+    room = Rooms.objects.all()[0]
+    processed_room = {'id': str(room.id), 'humidity_summer': room.humidity_summer,
+                      'humidity_winter': room.humidity_winter, 'temp_winter': room.temp_winter,
+                      'temp_summer': room.temp_summer, 'profile': str(room.profile.id)}
     assert response.json() == processed_room
 
 
@@ -49,5 +52,7 @@ def test_patch_room(client, room):
     assert room.humidity_summer == 98.9
     assert response.status_code == 200
     assert len(Rooms.objects.all()) == 1
-    processed_room = RoomSerializer(Rooms.objects.all()[0]).data.copy()
+    processed_room = {'id': str(room.id), 'humidity_summer': room.humidity_summer,
+                      'humidity_winter': room.humidity_winter, 'temp_winter': room.temp_winter,
+                      'temp_summer': room.temp_summer, 'profile': str(room.profile.id)}
     assert response.json() == processed_room
