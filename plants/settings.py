@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "plants_base",
     "plants_care",
     "rest_framework",
+    "managment",
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,8 @@ DATABASES = {
         "PORT": config("PORT", cast=int),
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

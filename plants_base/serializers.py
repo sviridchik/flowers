@@ -1,21 +1,36 @@
 from rest_framework import serializers
 
-from plants_base.models import Flowers, Microgreen, Succulents
+from plants_base.models import Flowers, Microgreen, Succulents, Indicators, BasePlants
 
 
-class SucculentsSerializer(serializers.ModelSerializer):
+class PlantBaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BasePlants
+        fields = (
+        'id', 'problems', 'antoginists', 'name', 'scientific_name', 'level_of_complexity', 'type_of_soil', 'fertilizer',
+        'date_of_last_transfer', 'description', 'spraying', 'type_of_watering', 'breeding_method')
+
+
+class SucculentsSerializer(PlantBaseSerializer):
     class Meta:
         model = Succulents
-        fields = "__all__"
+        fields = ('date_of_last_resting_state',)
 
 
-class MicrogreenSerializer(serializers.ModelSerializer):
+class MicrogreenSerializer(PlantBaseSerializer):
     class Meta:
         model = Microgreen
-        fields = "__all__"
+        fields = ('benifit_for_health', 'date_of_harvest')
 
 
-class FlowersSerializer(serializers.ModelSerializer):
+class FlowersSerializer(PlantBaseSerializer):
     class Meta:
         model = Flowers
-        fields = "__all__"
+        fields = ('color', 'last_date_of_blossom')
+
+
+class IndicatorsSerializer(serializers.ModelSerializer):
+    plant = PlantBaseSerializer()
+    class Meta:
+        model = Indicators
+        fields = ('humidity', 'lightning')
