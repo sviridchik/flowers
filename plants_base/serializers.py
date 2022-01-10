@@ -7,15 +7,19 @@ class PLantSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasePlants
         fields = (
-        "id", "name", "scientific_name", "level_of_complexity", "type_of_soil", "date_of_last_transfer", "description",
-        "spraying", "type_of_watering", "breeding_method")
+            "id", "name", "scientific_name", "level_of_complexity", "type_of_soil", "date_of_last_transfer",
+            "description",
+            "spraying", "type_of_watering", "breeding_method")
 
 
-# TODO to think may be to do nested serializer
 class SucculentsSerializer(serializers.ModelSerializer):
     class Meta(PLantSerializer.Meta):
         model = Succulents
         fields = ("date_of_last_resting_state",)
+
+    def create(self, validated_data):
+        # TODO debug Exception(validated_data, self)
+        return Succulents(**validated_data)
 
 
 class MicrogreenSerializer(serializers.ModelSerializer):

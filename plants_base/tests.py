@@ -17,4 +17,5 @@ data = {"name": "qwerty",
 @pytest.mark.django_db
 def test_post_plants(client):
     response = client.post("/plants_base/plants/", data=data)
+    # TODO debug(response.json())
     assert response.status_code == 200

@@ -1,8 +1,9 @@
 from rest_framework import generics
+
+from plants_base.choices import TypeChoice
 # TODO: Create your views here.
 from plants_base.models import BasePlants, Succulents, Flowers, Microgreen
 from plants_base.serializers import PLantSerializer, SucculentsSerializer, MicrogreenSerializer, FlowersSerializer
-from plants_base.choices import TypeChoice
 
 
 # TODO to think how to do it right
@@ -23,3 +24,24 @@ class Plants(generics.ListCreateAPIView):
             return Microgreen.objects.all()
         elif self.request.data["type"] == TypeChoice.FLOWERS.value:
             return Flowers.objects.all()
+
+
+class SucculentsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Succulents.objects.all()
+    serializer_class = SucculentsSerializer
+    # TODO: maybe allowANy?
+    # permission_classes = (permissions.IsAuthenticated)
+
+
+class FlowersDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Flowers.objects.all()
+    serializer_class = FlowersSerializer
+    # TODO: maybe allowANy?
+    # permission_classes = (permissions.IsAuthenticated)
+
+
+class MicrogreenDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Microgreen.objects.all()
+    serializer_class = MicrogreenSerializer
+    # TODO: maybe allowANy?
+    # permission_classes = (permissions.IsAuthenticated)
