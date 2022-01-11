@@ -1,7 +1,7 @@
 import pytest
 
-from managment.models import Profile
 from managment.factories import ProfileFactory
+from managment.models import Profile
 
 
 @pytest.mark.django_db
@@ -14,9 +14,13 @@ def test_get_user(client, profile_factory):
 @pytest.mark.django_db
 def test_post_users(client):
     response = client.post(
-        (f"/managment/users/"), data={'username': 'test12345', 'password': 'test123123',
-                                      'level_of_qualification': 3,
-                                      'email': 'test@gmail.com'}
+        (f"/managment/users/"),
+        data={
+            "username": "test12345",
+            "password": "test123123",
+            "level_of_qualification": 3,
+            "email": "test@gmail.com",
+        },
     )
     assert response.status_code == 201
     assert len(Profile.objects.all()) == 1
@@ -38,9 +42,7 @@ def test_delete_users(client, profile_factory):
 @pytest.mark.django_db
 def test_patch_users(client, profile_factory):
     p = profile_factory()
-    response = client.patch(
-        (f"/managment/users/{p.id}/"), data={'level_of_qualification': 5}
-    )
+    response = client.patch((f"/managment/users/{p.id}/"), data={"level_of_qualification": 5})
     p.refresh_from_db()
     # assert p.level_of_qualification == 5
     assert len(Profile.objects.all()) == 1

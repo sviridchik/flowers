@@ -1,14 +1,19 @@
 from rest_framework import generics
 
 from plants_base.choices import TypeChoice
+
 # TODO: Create your views here.
-from plants_base.models import BasePlants, Succulents, Flowers, Microgreen
-from plants_base.serializers import PLantSerializer, SucculentsSerializer, MicrogreenSerializer, FlowersSerializer
+from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
+from plants_base.serializers import (
+    FlowersSerializer,
+    MicrogreenSerializer,
+    PLantSerializer,
+    SucculentsSerializer,
+)
 
 
 # TODO to think how to do it right
 class Plants(generics.ListCreateAPIView):
-
     def get_serializer_class(self, *args, **kwargs):
         if self.request.data["type"] == TypeChoice.SUCCULENT.value:
             return SucculentsSerializer

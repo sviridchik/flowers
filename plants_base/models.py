@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes
-from plants_care.models import Watering, Fertilizer, Problem
+from plants_care.models import Fertilizer, Problem, Watering
 
 
 class BasePlants(models.Model):

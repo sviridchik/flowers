@@ -1,15 +1,23 @@
 from rest_framework import serializers
 
-from plants_base.models import Flowers, Microgreen, Succulents, BasePlants
+from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
 
 
 class PLantSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasePlants
         fields = (
-            "id", "name", "scientific_name", "level_of_complexity", "type_of_soil", "date_of_last_transfer",
+            "id",
+            "name",
+            "scientific_name",
+            "level_of_complexity",
+            "type_of_soil",
+            "date_of_last_transfer",
             "description",
-            "spraying", "type_of_watering", "breeding_method")
+            "spraying",
+            "type_of_watering",
+            "breeding_method",
+        )
 
 
 class SucculentsSerializer(serializers.ModelSerializer):

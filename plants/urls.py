@@ -21,5 +21,4 @@ urlpatterns = [
     path("care/", include("plants_care.urls")),
     path("managment/", include("managment.urls")),
     path("plants_base/", include("plants_base.urls")),
-
 ]

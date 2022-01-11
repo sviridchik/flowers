@@ -2,13 +2,13 @@ import asyncio
 
 
 async def f1():
-    while (True):
+    while True:
         print("hello from #1 coroutine")
         await asyncio.sleep(1)
 
 
 async def f2():
-    while (True):
+    while True:
         print("hello from #2 coroutine")
         await asyncio.sleep(1)
 
@@ -20,5 +20,5 @@ async def main():
     await asyncio.gather(task1, task2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(main())

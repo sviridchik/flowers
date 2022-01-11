@@ -1,16 +1,16 @@
 import factory
-
-from managment.models import Rooms, Profile
 from django.contrib.auth.models import User
+
+from managment.models import Profile, Rooms
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
-    username = factory.Faker('first_name')
-    email = 'test@gmail.com'
-    password = factory.PostGenerationMethodCall('set_password', 'test123123')
+    username = factory.Faker("first_name")
+    email = "test@gmail.com"
+    password = "test123123"
 
 
 class ProfileFactory(factory.django.DjangoModelFactory):
