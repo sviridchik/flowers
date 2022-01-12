@@ -9,8 +9,12 @@ def test_get_fert(client, fertilizer):
     response = client.get("/care/fertilizer/")
     assert response.status_code == 200
     assert len(response.json()) == 1
-    processed_fertilizer = {'id': str(fertilizer.id), 'description': fertilizer.description, 'title': fertilizer.title,
-                            'regime': str(fertilizer.regime.id)}
+    processed_fertilizer = {
+        "id": str(fertilizer.id),
+        "description": fertilizer.description,
+        "title": fertilizer.title,
+        "regime": str(fertilizer.regime.id),
+    }
     assert response.json()[0] == processed_fertilizer
 
 
@@ -26,8 +30,12 @@ def test_post_fert(client):
     assert response.status_code == 201
     assert len(Fertilizer.objects.all()) == 1
     fertilizer = Fertilizer.objects.all()[0]
-    processed_fertilizer = {'id': str(fertilizer.id), 'description': fertilizer.description, 'title': fertilizer.title,
-                            'regime': fertilizer.regime}
+    processed_fertilizer = {
+        "id": str(fertilizer.id),
+        "description": fertilizer.description,
+        "title": fertilizer.title,
+        "regime": fertilizer.regime,
+    }
     if processed_fertilizer["regime"] is not None:
         processed_fertilizer["regime"] = str(processed_fertilizer["regime"])
     assert response.json() == processed_fertilizer
@@ -37,8 +45,12 @@ def test_post_fert(client):
 def test_get_fert_pk(fertilizer, client):
     response = client.get(f"/care/fertilizer/{fertilizer.id}/")
     assert response.status_code == 200
-    processed_fertilizer = {'id': str(fertilizer.id), 'description': fertilizer.description, 'title': fertilizer.title,
-                            'regime': str(fertilizer.regime.id)}
+    processed_fertilizer = {
+        "id": str(fertilizer.id),
+        "description": fertilizer.description,
+        "title": fertilizer.title,
+        "regime": str(fertilizer.regime.id),
+    }
     assert response.json() == processed_fertilizer
 
 
@@ -56,6 +68,10 @@ def test_patch_fert(fertilizer, client):
     assert fertilizer.description == "very informative description"
     assert response.status_code == 200
     assert len(Fertilizer.objects.all()) == 1
-    processed_fertilizer = {'id': str(fertilizer.id), 'description': fertilizer.description, 'title': fertilizer.title,
-                            'regime': str(fertilizer.regime.id)}
+    processed_fertilizer = {
+        "id": str(fertilizer.id),
+        "description": fertilizer.description,
+        "title": fertilizer.title,
+        "regime": str(fertilizer.regime.id),
+    }
     assert response.json() == processed_fertilizer

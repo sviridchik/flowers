@@ -2,8 +2,13 @@ import pytest
 from pytest_factoryboy import register
 from rest_framework.test import APIClient
 
-from plants_care.factories import FertilizerFactory
-from plants_care.factories import FertilizerFactory, SolutionFactory, ProblemFactory, WateringFactory, RegimeFactory
+from plants_care.factories import (
+    FertilizerFactory,
+    ProblemFactory,
+    RegimeFactory,
+    SolutionFactory,
+    WateringFactory,
+)
 
 
 @pytest.fixture(autouse=True)

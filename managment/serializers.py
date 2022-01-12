@@ -27,16 +27,21 @@ class ProfileSerializer(serializers.ModelSerializer):
         return profile
 
     def update(self, instance, validated_data):
-        user = validated_data.get("user", {})
-        instance.user.email = user.get("email", instance.user.email)
-        instance.user.username = user.get("username", instance.user.username)
+        if "user" in validated_data:
+            instance.user.email = validated_data["user"].get("email", instance.user.email)
+            instance.user.username = validated_data["user"].get("username", instance.user.username)
         instance.user.password = validated_data.get("password", instance.user.password)
         instance.level_of_qualification = validated_data.get("level_of_qualification", instance.level_of_qualification)
-        instance.save()
         return instance
 
 
 class RoomSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+
     class Meta:
         model = Rooms
         fields = ("id", "humidity_summer", "humidity_winter", "temp_winter", "temp_summer", "profile")
+
+    # TODO looks like no profile
+    # def create(self, validated_data):
+    #     raise Exception(validated_data)

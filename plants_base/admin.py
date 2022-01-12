@@ -6,4 +6,3 @@ admin.site.register(models.Succulents)
 admin.site.register(models.Microgreen)
 admin.site.register(models.Flowers)
 admin.site.register(models.Indicators)
-

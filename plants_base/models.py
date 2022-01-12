@@ -3,15 +3,17 @@ import uuid
 from django.db import models
 
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes
-from plants_care.models import Watering, Fertilizer, Problem
+from plants_care.models import Fertilizer, Problem, Watering
 
 
 class BasePlants(models.Model):
+    class Meta:
+        abstract = True
 
-
-    id = models.IntegerField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(max_length=245, primary_key=True, default=uuid.uuid4, editable=False)
     problems = models.ForeignKey(Problem, on_delete=models.SET_NULL, null=True)
-    antoginists = models.IntegerField()
+    # TODO: antogonist fk?
+    # antoginists = models.IntegerField()
     name = models.CharField(max_length=245)
     scientific_name = models.CharField(max_length=245)
     level_of_complexity = models.FloatField()
@@ -22,6 +24,7 @@ class BasePlants(models.Model):
     spraying = models.BooleanField()
     type_of_watering = models.ForeignKey(Watering, on_delete=models.SET_NULL, null=True)
     breeding_method = models.CharField(max_length=245, choices=BreedingTypes.choices())
+    type = models.CharField(max_length=255)
 
 
 class Succulents(BasePlants):
@@ -39,6 +42,7 @@ class Flowers(BasePlants):
 
 
 class Indicators(models.Model):
-    plant = models.ForeignKey(BasePlants,on_delete=models.SET_NULL, null = True)
+    # TODO smth very wrong
+    # plant = models.ManyToManyField(BasePlants)
     humidity = models.FloatField()
     lightning = models.IntegerField()

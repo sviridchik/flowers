@@ -1,9 +1,7 @@
 from rest_framework import generics
 
-from managment.models import Rooms, Profile
-from managment.serializers import (
-    RoomSerializer,ProfileSerializer
-)
+from managment.models import Profile, Rooms
+from managment.serializers import ProfileSerializer, RoomSerializer
 
 
 class RoomList(generics.ListCreateAPIView):

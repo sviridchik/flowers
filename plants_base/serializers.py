@@ -1,36 +1,42 @@
 from rest_framework import serializers
 
-from plants_base.models import Flowers, Microgreen, Succulents, Indicators, BasePlants
+from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
 
 
-class PlantBaseSerializer(serializers.ModelSerializer):
+class PLantSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasePlants
         fields = (
-        'id', 'problems', 'antoginists', 'name', 'scientific_name', 'level_of_complexity', 'type_of_soil', 'fertilizer',
-        'date_of_last_transfer', 'description', 'spraying', 'type_of_watering', 'breeding_method')
+            "id",
+            "name",
+            "scientific_name",
+            "level_of_complexity",
+            "type_of_soil",
+            "date_of_last_transfer",
+            "description",
+            "spraying",
+            "type_of_watering",
+            "breeding_method",
+        )
 
 
-class SucculentsSerializer(PlantBaseSerializer):
-    class Meta:
+class SucculentsSerializer(serializers.ModelSerializer):
+    class Meta(PLantSerializer.Meta):
         model = Succulents
-        fields = ('date_of_last_resting_state',)
+        fields = ("date_of_last_resting_state",)
+
+    def create(self, validated_data):
+        # TODO debug Exception(validated_data, self)
+        return Succulents(**validated_data)
 
 
-class MicrogreenSerializer(PlantBaseSerializer):
-    class Meta:
+class MicrogreenSerializer(serializers.ModelSerializer):
+    class Meta(PLantSerializer.Meta):
         model = Microgreen
-        fields = ('benifit_for_health', 'date_of_harvest')
+        fields = ("benifit_for_health", " date_of_harvest")
 
 
-class FlowersSerializer(PlantBaseSerializer):
-    class Meta:
+class FlowersSerializer(serializers.ModelSerializer):
+    class Meta(PLantSerializer.Meta):
         model = Flowers
-        fields = ('color', 'last_date_of_blossom')
-
-
-class IndicatorsSerializer(serializers.ModelSerializer):
-    plant = PlantBaseSerializer()
-    class Meta:
-        model = Indicators
-        fields = ('humidity', 'lightning')
+        fields = ("color", "last_date_of_blossom")
