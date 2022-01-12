@@ -24,7 +24,6 @@ class BasePlants(models.Model):
     spraying = models.BooleanField()
     type_of_watering = models.ForeignKey(Watering, on_delete=models.SET_NULL, null=True)
     breeding_method = models.CharField(max_length=245, choices=BreedingTypes.choices())
-    type = models.CharField(max_length=255)
 
 
 class Succulents(BasePlants):

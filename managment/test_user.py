@@ -44,6 +44,6 @@ def test_patch_users(client, profile_factory):
     p = profile_factory()
     response = client.patch((f"/managment/users/{p.id}/"), data={"level_of_qualification": 5})
     p.refresh_from_db()
-    # assert p.level_of_qualification == 5
+    assert p.level_of_qualification == 5
     assert len(Profile.objects.all()) == 1
     assert response.status_code == 200

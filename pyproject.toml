@@ -14,7 +14,6 @@ pytest-django = "^4.5.2"
 factory-boy = "^3.2.1"
 pytest-factoryboy = "^2.1.0"
 Faker = "^11.0.0"
-pre-commit = "^2.16.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.16.0"

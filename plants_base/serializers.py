@@ -20,23 +20,23 @@ class PLantSerializer(serializers.ModelSerializer):
         )
 
 
-class SucculentsSerializer(serializers.ModelSerializer):
+class SucculentsSerializer(PLantSerializer):
     class Meta(PLantSerializer.Meta):
         model = Succulents
-        fields = ("date_of_last_resting_state",)
+        fields = ["date_of_last_resting_state"] + list(PLantSerializer.Meta.fields)
 
     def create(self, validated_data):
-        # TODO debug Exception(validated_data, self)
-        return Succulents(**validated_data)
+        succulent = Succulents.objects.create(**validated_data)
+        return succulent
 
 
 class MicrogreenSerializer(serializers.ModelSerializer):
     class Meta(PLantSerializer.Meta):
         model = Microgreen
-        fields = ("benifit_for_health", " date_of_harvest")
+        fields = ["benifit_for_health", "date_of_harvest"] + list(PLantSerializer.Meta.fields)
 
 
 class FlowersSerializer(serializers.ModelSerializer):
     class Meta(PLantSerializer.Meta):
         model = Flowers
-        fields = ("color", "last_date_of_blossom")
+        fields = ["color", "last_date_of_blossom"] + list(PLantSerializer.Meta.fields)
