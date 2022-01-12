@@ -21,28 +21,33 @@ def test_get_room(client, room):
     assert response.json()[0] == processed_room
 
 
-# TODO figure out
-# @pytest.mark.django_db
-# def test_post_room(client, user, profile):
-#     profile_id = profile.id
-#     response = client.post(
-#         "/managment/rooms/",
-#         data={
-#             "humidity_summer": 23,
-#             "humidity_winter": 12.4,
-#             "temp_winter": 23.23,
-#             "temp_summer": 33,
-#             "profile": Profile.objects.all()[0],
-#         },
-#     )
-#     assert response.status_code == 201
-#     assert len(Rooms.objects.all()) == 1
-#     # TODO to figure out why no profile in validated data
-#     room = Rooms.objects.all()[0]
-#     processed_room = {'id': str(room.id), 'humidity_summer': room.humidity_summer,
-#                       'humidity_winter': room.humidity_winter, 'temp_winter': room.temp_winter,
-#                       'temp_summer': room.temp_summer, 'profile': str(room.profile.id)}
-#     assert response.json() == processed_room
+@pytest.mark.skip(reason="<NEED TO FIGURE OUT PROFILE ISSUE>")
+@pytest.mark.django_db
+def test_post_room(client, user, profile):
+    profile_id = profile.id
+    response = client.post(
+        "/managment/rooms/",
+        data={
+            "humidity_summer": 23,
+            "humidity_winter": 12.4,
+            "temp_winter": 23.23,
+            "temp_summer": 33,
+            "profile": Profile.objects.all()[0],
+        },
+    )
+    assert response.status_code == 201
+    assert len(Rooms.objects.all()) == 1
+    # TODO to figure out why no profile in validated data
+    room = Rooms.objects.all()[0]
+    processed_room = {
+        "id": str(room.id),
+        "humidity_summer": room.humidity_summer,
+        "humidity_winter": room.humidity_winter,
+        "temp_winter": room.temp_winter,
+        "temp_summer": room.temp_summer,
+        "profile": str(room.profile.id),
+    }
+    assert response.json() == processed_room
 
 
 @pytest.mark.django_db

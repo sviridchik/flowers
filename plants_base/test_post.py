@@ -1,13 +1,13 @@
 import pytest
 
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes, TypeChoice
-from plants_base.data_for_tests import data_flowers, data_microgreen, data_succulent
+from plants_base.data_for_tests import DATA_FLOWERS, DATA_MICROGREEN, DATA_SUCCULENTS
 from plants_base.models import Flowers, Microgreen, Succulents
 
 
 @pytest.mark.django_db
 def test_post_plants_succulents(client):
-    response = client.post("/plants_base/plants/" + TypeChoice.SUCCULENT.value + "/", data=data_succulent)
+    response = client.post(f"/plants_base/plants/{TypeChoice.SUCCULENT.value}/", data=DATA_SUCCULENTS)
     assert response.status_code == 201
     assert len(Succulents.objects.all()) == 1
     assert len(Flowers.objects.all()) == 0
@@ -29,7 +29,7 @@ def test_post_plants_succulents(client):
 
 @pytest.mark.django_db
 def test_post_plants_microgreen(client):
-    response = client.post("/plants_base/plants/" + TypeChoice.MICROGREEN.value + "/", data=data_microgreen)
+    response = client.post(f"/plants_base/plants/{TypeChoice.MICROGREEN.value}/", data=DATA_MICROGREEN)
     assert response.status_code == 201
     assert len(Microgreen.objects.all()) == 1
     assert len(Flowers.objects.all()) == 0
@@ -52,7 +52,7 @@ def test_post_plants_microgreen(client):
 
 @pytest.mark.django_db
 def test_post_plants_flowers(client):
-    response = client.post("/plants_base/plants/" + TypeChoice.FLOWERS.value + "/", data=data_flowers)
+    response = client.post(f"/plants_base/plants/{TypeChoice.FLOWERS.value}/", data=DATA_FLOWERS)
     assert response.status_code == 201
     assert len(Flowers.objects.all()) == 1
     assert len(Microgreen.objects.all()) == 0

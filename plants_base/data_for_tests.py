@@ -1,6 +1,6 @@
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes
 
-data_succulent = {
+DATA_SUCCULENTS = {
     "name": "qwerty",
     "scientific_name": "qwerty123",
     "level_of_complexity": 3,
@@ -11,7 +11,7 @@ data_succulent = {
     "breeding_method": BreedingTypes.DIVISION.name,
     "date_of_last_resting_state": "2021-09-09",
 }
-data_microgreen = {
+DATA_MICROGREEN = {
     "name": "qwerty",
     "scientific_name": "qwerty123",
     "level_of_complexity": 3,
@@ -23,7 +23,7 @@ data_microgreen = {
     "benifit_for_health": "Vitamin A,C",
     "date_of_harvest": "2022-09-09",
 }
-data_flowers = {
+DATA_FLOWERS = {
     "name": "qwerty",
     "scientific_name": "qwerty123",
     "level_of_complexity": 3,
