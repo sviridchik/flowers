@@ -46,8 +46,8 @@ class RoomSerializer(serializers.ModelSerializer):
     # TODO looks like no profile
     def create(self, validated_data):
         profile = validated_data.get("profile")
-        # TODO none WHY WHY WHY AAAAAAA
-        raise Exception(validated_data)
+        # TODO Next step
+        # raise Exception(validated_data)
         room, created = Rooms.objects.get_or_create(
             profile=profile,
             defaults={

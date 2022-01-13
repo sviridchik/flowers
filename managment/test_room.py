@@ -21,7 +21,7 @@ def test_get_room(client, room):
     assert response.json()[0] == processed_room
 
 
-@pytest.mark.skip(reason="<NEED TO FIGURE OUT PROFILE ISSUE>")
+@pytest.mark.skip(reason="<NEXT STEP: NEED TO FIGURE OUT PROFILE ISSUE>")
 @pytest.mark.django_db
 def test_post_room(client, user, profile):
     profile_id = profile.id
@@ -32,7 +32,7 @@ def test_post_room(client, user, profile):
             "humidity_winter": 12.4,
             "temp_winter": 23.23,
             "temp_summer": 33,
-            "profile": Profile.objects.all()[0],
+            "profile": profile,
         },
     )
     assert response.status_code == 201

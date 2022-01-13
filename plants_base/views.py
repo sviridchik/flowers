@@ -1,4 +1,5 @@
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 
 from plants_base.choices import TypeChoice
 
@@ -12,9 +13,9 @@ from plants_base.serializers import (
 )
 
 
-# TODO to think how to do it right
 class Plants(generics.ListCreateAPIView):
     def get_serializer_class(self, *args, **kwargs):
+
         if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
             return SucculentsSerializer
         elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
@@ -29,6 +30,29 @@ class Plants(generics.ListCreateAPIView):
             return Microgreen.objects.all()
         elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
             return Flowers.objects.all()
+
+
+class PlantsDetail(generics.RetrieveUpdateDestroyAPIView):
+    def get_serializer_class(self, *args, **kwargs):
+        if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
+            return SucculentsSerializer
+        elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
+            return MicrogreenSerializer
+        elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
+            return FlowersSerializer
+
+    def get_object(self):
+        pk = self.kwargs['pk']
+        if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
+            try:
+                return Succulents.objects.get(pk=pk)
+            except Succulents.DoesNotExist:
+                return Response({"error": "Not found!"}, status=status.HTTP_404_NOT_FOUND)
+        elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
+            return Microgreen.objects.get(pk=pk)
+        elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
+            return Flowers.objects.get(pk=pk)
+
 
 
 class SucculentsDetail(generics.RetrieveUpdateDestroyAPIView):
