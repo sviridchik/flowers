@@ -37,17 +37,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(read_only=True)
+    profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
 
     class Meta:
         model = Rooms
         fields = ("id", "humidity_summer", "humidity_winter", "temp_winter", "temp_summer", "profile")
 
-    # TODO looks like no profile
     def create(self, validated_data):
         profile = validated_data.get("profile")
-        # TODO Next step
-        # raise Exception(validated_data)
         room, created = Rooms.objects.get_or_create(
             profile=profile,
             defaults={

@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
 
@@ -44,14 +45,11 @@ class PlantsDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         pk = self.kwargs["pk"]
         if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
-            try:
-                return Succulents.objects.get(pk=pk)
-            except Succulents.DoesNotExist:
-                return Response({"error": "Not found!"}, status=status.HTTP_404_NOT_FOUND)
+            return get_object_or_404(Succulents, pk=pk)
         elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
-            return Microgreen.objects.get(pk=pk)
+            return get_object_or_404(Microgreen, pk=pk)
         elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
-            return Flowers.objects.get(pk=pk)
+            return get_object_or_404(Flowers, pk=pk)
 
 
 class SucculentsDetail(generics.RetrieveUpdateDestroyAPIView):
