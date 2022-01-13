@@ -9,7 +9,7 @@ from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
 from plants_base.serializers import (
     FlowersSerializer,
     MicrogreenSerializer,
-    PLantSerializer,
+    PlantSerializer,
     SucculentsSerializer,
 )
 
