@@ -1,4 +1,6 @@
-from rest_framework import generics
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, status
+from rest_framework.response import Response
 
 from plants_base.choices import TypeChoice
 
@@ -7,28 +9,47 @@ from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
 from plants_base.serializers import (
     FlowersSerializer,
     MicrogreenSerializer,
-    PLantSerializer,
+    PlantSerializer,
     SucculentsSerializer,
 )
 
 
-# TODO to think how to do it right
 class Plants(generics.ListCreateAPIView):
     def get_serializer_class(self, *args, **kwargs):
-        if self.request.data["type"] == TypeChoice.SUCCULENT.value:
+
+        if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
             return SucculentsSerializer
-        elif self.request.data["type"] == TypeChoice.MICROGREEN.value:
+        elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
             return MicrogreenSerializer
-        elif self.request.data["type"] == TypeChoice.FLOWERS.value:
+        elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
             return FlowersSerializer
 
     def get_queryset(self, *args, **kwargs):
-        if self.request.data["type"] == TypeChoice.SUCCULENT.value:
+        if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
             return Succulents.objects.all()
-        elif self.request.data["type"] == TypeChoice.MICROGREEN.value:
+        elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
             return Microgreen.objects.all()
-        elif self.request.data["type"] == TypeChoice.FLOWERS.value:
+        elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
             return Flowers.objects.all()
+
+
+class PlantsDetail(generics.RetrieveUpdateDestroyAPIView):
+    def get_serializer_class(self, *args, **kwargs):
+        if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
+            return SucculentsSerializer
+        elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
+            return MicrogreenSerializer
+        elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
+            return FlowersSerializer
+
+    def get_object(self):
+        pk = self.kwargs["pk"]
+        if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
+            return get_object_or_404(Succulents, pk=pk)
+        elif self.kwargs["type"] == TypeChoice.MICROGREEN.value:
+            return get_object_or_404(Microgreen, pk=pk)
+        elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
+            return get_object_or_404(Flowers, pk=pk)
 
 
 class SucculentsDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -3,7 +3,7 @@ from rest_framework import serializers
 from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
 
 
-class PLantSerializer(serializers.ModelSerializer):
+class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasePlants
         fields = (
@@ -20,23 +20,23 @@ class PLantSerializer(serializers.ModelSerializer):
         )
 
 
-class SucculentsSerializer(serializers.ModelSerializer):
-    class Meta(PLantSerializer.Meta):
+class SucculentsSerializer(PlantSerializer):
+    class Meta(PlantSerializer.Meta):
         model = Succulents
-        fields = ("date_of_last_resting_state",)
+        fields = ["date_of_last_resting_state", *PlantSerializer.Meta.fields]
 
     def create(self, validated_data):
-        # TODO debug Exception(validated_data, self)
-        return Succulents(**validated_data)
+        succulent = Succulents.objects.create(**validated_data)
+        return succulent
 
 
 class MicrogreenSerializer(serializers.ModelSerializer):
-    class Meta(PLantSerializer.Meta):
+    class Meta(PlantSerializer.Meta):
         model = Microgreen
-        fields = ("benifit_for_health", " date_of_harvest")
+        fields = ["benifit_for_health", "date_of_harvest", *PlantSerializer.Meta.fields]
 
 
 class FlowersSerializer(serializers.ModelSerializer):
-    class Meta(PLantSerializer.Meta):
+    class Meta(PlantSerializer.Meta):
         model = Flowers
-        fields = ("color", "last_date_of_blossom")
+        fields = ["color", "last_date_of_blossom", *PlantSerializer.Meta.fields]

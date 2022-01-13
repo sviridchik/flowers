@@ -32,16 +32,35 @@ class ProfileSerializer(serializers.ModelSerializer):
             instance.user.username = validated_data["user"].get("username", instance.user.username)
         instance.user.password = validated_data.get("password", instance.user.password)
         instance.level_of_qualification = validated_data.get("level_of_qualification", instance.level_of_qualification)
+        instance.save()
         return instance
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(read_only=True)
+    profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
 
     class Meta:
         model = Rooms
         fields = ("id", "humidity_summer", "humidity_winter", "temp_winter", "temp_summer", "profile")
 
-    # TODO looks like no profile
-    # def create(self, validated_data):
-    #     raise Exception(validated_data)
+    def create(self, validated_data):
+        profile = validated_data.get("profile")
+        room, created = Rooms.objects.get_or_create(
+            profile=profile,
+            defaults={
+                "humidity_summer": validated_data.get("humidity_summer"),
+                "humidity_winter": validated_data.get("humidity_winter"),
+                "temp_winter": validated_data.get("temp_winter"),
+                "temp_summer": validated_data.get("temp_summer"),
+            },
+        )
+        return room
+
+    def update(self, instance, validated_data):
+        instance.profile = validated_data.get("profile", instance.profile)
+        instance.humidity_summer = validated_data.get("humidity_summer", instance.humidity_summer)
+        instance.humidity_winter = validated_data.get("humidity_winter", instance.humidity_winter)
+        instance.temp_winter = validated_data.get("temp_winter", instance.temp_winter)
+        instance.temp_summer = validated_data.get("temp_summer", instance.temp_summer)
+        instance.save()
+        return instance
