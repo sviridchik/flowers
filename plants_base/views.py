@@ -42,7 +42,7 @@ class PlantsDetail(generics.RetrieveUpdateDestroyAPIView):
             return FlowersSerializer
 
     def get_object(self):
-        pk = self.kwargs['pk']
+        pk = self.kwargs["pk"]
         if self.kwargs["type"] == TypeChoice.SUCCULENT.value:
             try:
                 return Succulents.objects.get(pk=pk)
@@ -52,7 +52,6 @@ class PlantsDetail(generics.RetrieveUpdateDestroyAPIView):
             return Microgreen.objects.get(pk=pk)
         elif self.kwargs["type"] == TypeChoice.FLOWERS.value:
             return Flowers.objects.get(pk=pk)
-
 
 
 class SucculentsDetail(generics.RetrieveUpdateDestroyAPIView):

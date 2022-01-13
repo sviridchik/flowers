@@ -9,8 +9,10 @@ from plants_base.models import Flowers, Microgreen, Succulents
 
 @pytest.mark.django_db
 def test_patch_plants_succulents_pk(client, succulent):
-    response = client.patch(f"/plants_base/plants/{TypeChoice.SUCCULENT.value}/{succulent.id}/",
-                            data={"date_of_last_resting_state": "2021-09-29"})
+    response = client.patch(
+        f"/plants_base/plants/{TypeChoice.SUCCULENT.value}/{succulent.id}/",
+        data={"date_of_last_resting_state": "2021-09-29"},
+    )
     succulent.refresh_from_db()
     assert succulent.date_of_last_resting_state == datetime.date(2021, 9, 29)
     assert response.status_code == 200
@@ -31,8 +33,10 @@ def test_patch_plants_succulents_pk(client, succulent):
 
 @pytest.mark.django_db
 def test_patch_plants_microgreen_pk(client, microgreen):
-    response = client.patch(f"/plants_base/plants/{TypeChoice.MICROGREEN.value}/{microgreen.id}/",
-                            data={"benifit_for_health": "high iron content"})
+    response = client.patch(
+        f"/plants_base/plants/{TypeChoice.MICROGREEN.value}/{microgreen.id}/",
+        data={"benifit_for_health": "high iron content"},
+    )
     microgreen.refresh_from_db()
     assert microgreen.benifit_for_health == "high iron content"
     assert response.status_code == 200
@@ -54,7 +58,9 @@ def test_patch_plants_microgreen_pk(client, microgreen):
 
 @pytest.mark.django_db
 def test_patch_plants_flowers_pk(client, flowers):
-    response = client.patch(f"/plants_base/plants/{TypeChoice.FLOWERS.value}/{flowers.id}/",data={"last_date_of_blossom": "2022-09-08"})
+    response = client.patch(
+        f"/plants_base/plants/{TypeChoice.FLOWERS.value}/{flowers.id}/", data={"last_date_of_blossom": "2022-09-08"}
+    )
 
     flowers.refresh_from_db()
     assert flowers.last_date_of_blossom == datetime.date(2022, 9, 8)
