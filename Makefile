@@ -7,7 +7,6 @@ build:
 .PHONY:start
 start:
 	docker-compose build && docker-compose up
-#TODO smth wrong
-#.PHONY:test
-#test:
-#	poetry install && poetry shell && poetry run pytest
+.PHONY:test
+test:
+	poetry run pytest
