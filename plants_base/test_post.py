@@ -1,7 +1,14 @@
 import pytest
 
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes, TypeChoice
-from plants_base.data_for_tests import DATA_FLOWERS, DATA_MICROGREEN, DATA_SUCCULENTS
+from plants_base.data_for_tests import (
+    DATA_FLOWERS,
+    DATA_MICROGREEN,
+    DATA_MICROGREEN_VALIDATION_FUNC,
+    DATA_MICROGREEN_VALIDATORS,
+    DATA_SUCCULENTS,
+    DATA_SUCCULENTS_VALIDATORS_OBJECT_LEVEL,
+)
 from plants_base.models import Flowers, Microgreen, Succulents
 
 
@@ -28,6 +35,17 @@ def test_post_plants_succulents(client):
 
 
 @pytest.mark.django_db
+def test_post_plants_succulents_check_validators_object_level(client):
+    response = client.post(
+        f"/plants_base/plants/{TypeChoice.SUCCULENT.value}/", data=DATA_SUCCULENTS_VALIDATORS_OBJECT_LEVEL
+    )
+    assert response.status_code == 400
+    assert len(Succulents.objects.all()) == 0
+    assert len(Flowers.objects.all()) == 0
+    assert len(Microgreen.objects.all()) == 0
+
+
+@pytest.mark.django_db
 def test_post_plants_microgreen(client):
     response = client.post(f"/plants_base/plants/{TypeChoice.MICROGREEN.value}/", data=DATA_MICROGREEN)
     assert response.status_code == 201
@@ -48,6 +66,24 @@ def test_post_plants_microgreen(client):
         "type_of_watering": None,
         "breeding_method": "DIVISION",
     }
+
+
+@pytest.mark.django_db
+def test_post_plants_microgreen_check_validators(client):
+    response = client.post(f"/plants_base/plants/{TypeChoice.MICROGREEN.value}/", data=DATA_MICROGREEN_VALIDATORS)
+    assert response.status_code == 400
+    assert len(Microgreen.objects.all()) == 0
+    assert len(Flowers.objects.all()) == 0
+    assert len(Succulents.objects.all()) == 0
+
+
+@pytest.mark.django_db
+def test_post_plants_microgreen_check_validators_func(client):
+    response = client.post(f"/plants_base/plants/{TypeChoice.MICROGREEN.value}/", data=DATA_MICROGREEN_VALIDATION_FUNC)
+    assert response.status_code == 400
+    assert len(Microgreen.objects.all()) == 0
+    assert len(Flowers.objects.all()) == 0
+    assert len(Succulents.objects.all()) == 0
 
 
 @pytest.mark.django_db
