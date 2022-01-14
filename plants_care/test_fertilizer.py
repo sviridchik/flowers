@@ -24,7 +24,7 @@ def test_post_fert(client):
         "/care/fertilizer/",
         data={
             "description": "very good fertilizer for  flowers during flowering",
-            "title": "Sodium Nitrate Calcium Nitrate ",
+            "title": "Sodium Nitrate Calcium Fe",
         },
     )
     assert response.status_code == 201

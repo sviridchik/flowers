@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from plants_care.models import Fertilizer, Problem, Regime, Solution, Watering
 
@@ -13,6 +14,8 @@ class FertilizerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fertilizer
         fields = ("id", "description", "title", "regime")
+        # TODO https://django.fun/docs/django-rest-framework/ru/3.12/api-guide/validators/
+        validators = [UniqueTogetherValidator(queryset=Fertilizer.objects.all(), fields=["id"])]
 
 
 class ProblemSerializer(serializers.ModelSerializer):
