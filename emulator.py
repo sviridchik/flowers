@@ -1,9 +1,26 @@
 import asyncio
+from asyncio import exceptions
+
+import aiohttp
+
+from plants_base.choices import TypeChoice
+from plants_base.models import Succulents
+
+DEFAULT_TIMEOUT = 5
+
+
+async def get(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return response
 
 
 async def f1():
     while True:
-        print("hello from #1 coroutine")
+        # TODO raise ImproperlyConfigured(
+        response = get(f"http://127.0.0.1:8000/plants_base/plants/{TypeChoice.MICROGREEN.value}/")
+        print("hello from #1 coroutine", response)
+
         await asyncio.sleep(1)
 
 
@@ -21,4 +38,8 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    try:
+        asyncio.run(asyncio.wait_for(main(), DEFAULT_TIMEOUT))
+    except exceptions.TimeoutError:
+        print("the end")
