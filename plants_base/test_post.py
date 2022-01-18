@@ -1,6 +1,6 @@
 import pytest
 
-from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes, TypeChoice
+from plants_base.choices import TypeChoice
 from plants_base.data_for_tests import (
     DATA_FLOWERS,
     DATA_MICROGREEN,
