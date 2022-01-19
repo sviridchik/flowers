@@ -1,0 +1,6 @@
+{
+"FIELDS_TO_CHANGE" : ["level_of_complexity", "spraying"],
+"VALUE_TO_CHANGE" : ["random.uniform(0, 5)", "bool(random.randint(0, 1))"],
+"DEFAULT_TIMEOUT" : 5,
+  "BACKEND_URL" : "http://127.0.0.1:8000"
+}
