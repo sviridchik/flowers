@@ -3,12 +3,13 @@ import json
 import logging
 import random
 from asyncio import exceptions
-from COSTANTS import DISTRIBUTION_MAP
+
 import aiohttp
 
 # TODO for more serios fields
 import faker
 
+from COSTANTS import DISTRIBUTION_MAP
 from plants_base.choices import TypeChoice
 
 logging.basicConfig(level=logging.INFO)
@@ -18,12 +19,10 @@ with open("config.json") as f:
 data_constants = {}
 for i in range(len(data_constants_raw["VALUE_TO_CHANGE"])):
     node = data_constants_raw["VALUE_TO_CHANGE"][i]
-    data_constants[node["field"]] = DISTRIBUTION_MAP[node["distribution"]](node["range"][0],node["range"][1])
+    data_constants[node["field"]] = DISTRIBUTION_MAP[node["distribution"]](node["range"][0], node["range"][1])
     if "function" in node:
         data_constants[node["field"]] = DISTRIBUTION_MAP[node["function"]](data_constants[node["field"]])
 
-
-print("data_constants = ",data_constants)
 
 
 async def choose_the_victim_plant():
@@ -50,9 +49,7 @@ async def choose_the_victim_plant():
                 state = "successfully"
             else:
                 state = "unsuccessfully"
-            logging.info(
-                f"Metric that was {state} changed is {field_to_change}, with value {value}"
-            )
+            logging.info(f"Metric that was {state} changed is {field_to_change}, with value {value}")
             logging.info(response_patch)
         else:
             logging.warning(f"Metric wasn't changed , reason: {response.json}")
