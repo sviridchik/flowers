@@ -7,8 +7,6 @@ from plants_care.models import Fertilizer, Problem, Watering
 
 
 class BasePlants(models.Model):
-    class Meta:
-        abstract = True
 
     id = models.CharField(max_length=245, primary_key=True, default=uuid.uuid4, editable=False)
     problems = models.ForeignKey(Problem, on_delete=models.SET_NULL, null=True)
@@ -24,7 +22,6 @@ class BasePlants(models.Model):
     spraying = models.BooleanField()
     type_of_watering = models.ForeignKey(Watering, on_delete=models.SET_NULL, null=True)
     breeding_method = models.CharField(max_length=245, choices=BreedingTypes.choices())
-    type = models.CharField(max_length=255)
 
 
 class Succulents(BasePlants):
@@ -41,8 +38,8 @@ class Flowers(BasePlants):
     last_date_of_blossom = models.DateField()
 
 
+# TODO to remember they are info do not change!
 class Indicators(models.Model):
-    # TODO smth very wrong
-    # plant = models.ManyToManyField(BasePlants)
+    plant = models.ForeignKey(BasePlants, on_delete=models.CASCADE)
     humidity = models.FloatField()
     lightning = models.IntegerField()

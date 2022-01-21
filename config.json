@@ -1,0 +1,9 @@
+{
+"FIELDS_TO_CHANGE" : ["level_of_complexity", "spraying"],
+"DEFAULT_TIMEOUT" : 5,
+    "VALUE_TO_CHANGE" : [
+    {"field":"level_of_complexity", "range": [0, 5], "distribution": "uniform"},
+    {"field":"spraying", "range": [0, 1], "distribution": "randint", "function": "bool"}
+  ],
+  "BACKEND_URL" : "http://127.0.0.1:8000"
+}
