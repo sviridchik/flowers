@@ -6,7 +6,7 @@ from asyncio import exceptions
 
 import aiohttp
 
-from COSTANTS import DISTRIBUTION_MAP
+from constants import DISTRIBUTION_MAP
 from plants_base.choices import TypeChoice
 
 logging.basicConfig(level=logging.INFO)
@@ -16,8 +16,7 @@ def prep_data(DISTRIBUTION_MAP):
     with open("config.json") as f:
         data_constants_raw = json.load(f)
     data_constants = {}
-    for i in range(len(data_constants_raw["VALUE_TO_CHANGE"])):
-        node = data_constants_raw["VALUE_TO_CHANGE"][i]
+    for node in data_constants_raw["VALUE_TO_CHANGE"]:
         data_constants[node["field"]] = DISTRIBUTION_MAP[node["distribution"]](node["range"][0], node["range"][1])
         if "function" in node:
             data_constants[node["field"]] = DISTRIBUTION_MAP[node["function"]](data_constants[node["field"]])
