@@ -7,6 +7,7 @@ from plants_care.models import Fertilizer, Problem, Watering
 
 
 class BasePlants(models.Model):
+
     id = models.CharField(max_length=245, primary_key=True, default=uuid.uuid4, editable=False)
     problems = models.ForeignKey(Problem, on_delete=models.SET_NULL, null=True)
     # TODO: antogonist fk?
