@@ -40,3 +40,14 @@ class FlowersFactory(PlantFactory):
 
     color = ColorTypes.YELLOW.name
     last_date_of_blossom = "2022-09-09"
+
+
+class IndicatorsFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = User
+
+    plant = factory.SubFactory(PlantFactory)
+    humidity = 82
+    lightning = 700
+    temp_winter = -9
+    temp_summer = 25
