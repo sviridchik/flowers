@@ -11,6 +11,7 @@ from plants_base.data_for_tests import (
 )
 from plants_base.models import Flowers, Microgreen, Succulents
 
+
 # TODO here in progress
 @pytest.mark.django_db
 def test_post_plants_succulents(client):

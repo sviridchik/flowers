@@ -40,8 +40,10 @@ class Flowers(BasePlants):
 
 
 class Indicators(models.Model):
+    id = models.CharField(max_length=245, primary_key=True, default=uuid.uuid4, editable=False)
     plant = models.ForeignKey(BasePlants, on_delete=models.CASCADE)
-    humidity = models.FloatField()
+    humidity_summer = models.FloatField()
+    humidity_winter = models.FloatField()
     lightning = models.IntegerField()
     temp_winter = models.FloatField()
     temp_summer = models.FloatField()

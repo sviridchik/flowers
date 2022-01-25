@@ -2,7 +2,7 @@ import factory
 from django.contrib.auth.models import User
 
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes, TypeChoice
-from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
+from plants_base.models import BasePlants, Flowers, Indicators, Microgreen, Succulents
 
 
 class PlantFactory(factory.django.DjangoModelFactory):
@@ -44,7 +44,7 @@ class FlowersFactory(PlantFactory):
 
 class IndicatorsFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = User
+        model = Indicators
 
     plant = factory.SubFactory(PlantFactory)
     humidity = 82
