@@ -2,7 +2,7 @@ import factory
 from django.contrib.auth.models import User
 
 from plants_base.choices import BreedingTypes, ColorTypes, SoilTypes, TypeChoice
-from plants_base.models import BasePlants, Flowers, Microgreen, Succulents
+from plants_base.models import BasePlants, Flowers, Indicators, Microgreen, Succulents
 
 
 class PlantFactory(factory.django.DjangoModelFactory):
@@ -40,3 +40,14 @@ class FlowersFactory(PlantFactory):
 
     color = ColorTypes.YELLOW.name
     last_date_of_blossom = "2022-09-09"
+
+
+class IndicatorsFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Indicators
+
+    plant = factory.SubFactory(PlantFactory)
+    humidity = 82
+    lightning = 700
+    temp_winter = -9
+    temp_summer = 25
